@@ -3,7 +3,7 @@
   <PropertyGroup>
     <PackageId>BoletoNetCore</PackageId>
     <title>BoletoNetCore</title>
-    <version>3.0.0</version>
+    <version>1.0.0</version>
     <authors>BoletoNetCore</authors>
     <owners>BoletoNetCore</owners>
     <projectUrl>https://github.com/BoletoNet/BoletoNetCore/</projectUrl>
@@ -23,7 +23,8 @@
     <OutputType>Library</OutputType>
     <StartupObject />
     <IsPackable>true</IsPackable>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageIcon>logoBoleto.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -37,6 +38,13 @@
   <ItemGroup>
     <None Remove="BoletoImpressao\Parts\Pix.html" />
     <None Remove="Imagens\085.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\keni\Downloads\logoBoleto.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

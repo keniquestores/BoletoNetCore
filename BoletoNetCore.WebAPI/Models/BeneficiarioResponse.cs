@@ -9,8 +9,9 @@
         public string Observacoes { get; set; } = string.Empty;
 
         public string CPFCNPJ { get; set; } = string.Empty;
+		public string Codigo { get; set; } = string.Empty;
 
-        public ContaBancariaResponse ContaBancariaResponse { get; set; } = new ContaBancariaResponse();
+		public ContaBancariaResponse ContaBancariaResponse { get; set; } = new ContaBancariaResponse();
 
         public Endereco Endereco { get; set; } = new Endereco();
 

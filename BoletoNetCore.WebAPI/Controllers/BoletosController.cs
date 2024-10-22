@@ -70,10 +70,12 @@ namespace BoletoNetCore.WebAPI.Controllers
                     return BadRequest(retorno);
                 }
 
-                GerarBoletoBancos gerarBoletoBancos = new GerarBoletoBancos(Banco.Instancia(metodosUteis.RetornarBancoEmissor(tipoBancoEmissor)));
-                var htmlBoleto = gerarBoletoBancos.RetornarHtmlBoleto(dadosBoleto);
+				//Banco.IgnoraConfigurarcaoImpressaoBoleto = true;
+				var banco = Banco.Instancia(metodosUteis.RetornarBancoEmissor(tipoBancoEmissor));
+				GerarBoletoBancos gerarBoletoBancos = new GerarBoletoBancos(banco);
+				var htmlBoleto = gerarBoletoBancos.RetornarHtmlBoleto(dadosBoleto);
 
-                return Content(htmlBoleto, "text/html");
+				return Content(htmlBoleto, "text/html");
             }
             catch (Exception ex)
             {

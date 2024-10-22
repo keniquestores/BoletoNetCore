@@ -19,6 +19,7 @@ namespace BoletoNetCore.WebAPI.Extensions
             {
                 CPFCNPJ = dadosBoleto.BeneficiarioResponse.CPFCNPJ,
                 Nome = dadosBoleto.BeneficiarioResponse.Nome,
+                Codigo = dadosBoleto.BeneficiarioResponse.Codigo,   
                 ContaBancaria = new ContaBancaria()
                 {
                     Agencia = dadosBoleto.BeneficiarioResponse.ContaBancariaResponse.Agencia,
@@ -26,7 +27,9 @@ namespace BoletoNetCore.WebAPI.Extensions
                     CarteiraPadrao = dadosBoleto.BeneficiarioResponse.ContaBancariaResponse.CarteiraPadrao,
                     TipoCarteiraPadrao = TipoCarteira.CarteiraCobrancaSimples,
                     TipoFormaCadastramento = TipoFormaCadastramento.ComRegistro,
-                    TipoImpressaoBoleto = TipoImpressaoBoleto.Empresa
+                    TipoImpressaoBoleto = TipoImpressaoBoleto.Empresa,
+                    DigitoConta = dadosBoleto.BeneficiarioResponse.ContaBancariaResponse.DigitoConta,
+                    DigitoAgencia = dadosBoleto.BeneficiarioResponse.ContaBancariaResponse.DigitoAgencia
                 }
             };
 
@@ -34,7 +37,9 @@ namespace BoletoNetCore.WebAPI.Extensions
             _banco.FormataBeneficiario();
 
             var boleto = GerarBoleto(_banco, dadosBoleto);
-            var boletoBancario = new BoletoBancario();
+            boleto.ValidarDados();
+
+			var boletoBancario = new BoletoBancario();
             boletoBancario.Boleto = boleto;
 
             return boletoBancario.MontaHtmlEmbedded();
@@ -55,15 +60,14 @@ namespace BoletoNetCore.WebAPI.Extensions
                     NumeroDocumento = dadosBoleto.NumeroDocumento,
                     EspecieDocumento = TipoEspecieDocumento.DS,
                     ImprimirValoresAuxiliares = true,
-                };
-
-                //  Para teste não é preciso validar os dados, pois com dados falso nunca vai gerar um boleto que dê para pagar
-                //boleto.ValidarDados();
+					DataJuros = DateTime.TryParse(dadosBoleto.DataJuros?.ToString(), out var dataJuros) ? dataJuros : DateTime.MinValue,
+					TipoJuros = Enum.TryParse<TipoJuros>(dadosBoleto.TipoJuros?.ToString(), out var tipoJuros) ? tipoJuros : TipoJuros.Isento,
+					ValorJurosDia = decimal.TryParse(dadosBoleto.ValorJurosDia?.ToString(), out var valorJurosDia) ? valorJurosDia : 0m,
+				};
                 return boleto;
             }
             catch (Exception)
             {
-
                 throw;
             }
         }

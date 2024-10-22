@@ -47,10 +47,16 @@ namespace BoletoNetCore
         /// </summary>
         void ValidaBoleto(Boleto boleto);
 
-        /// <summary>
-        /// Gera o header do arquivo de remessa
-        /// </summary>
-        string GerarHeaderRemessa(TipoArquivo tipoArquivo, int numeroArquivoRemessa, ref int numeroRegistro);
+		/// <summary>
+		/// Opção para formatar Impressão do Boleto
+		/// </summary>
+		/// <param name="boleto"></param>
+		void ConfigurarImpressaoBoleto(Boleto boleto);
+
+		/// <summary>
+		/// Gera o header do arquivo de remessa
+		/// </summary>
+		string GerarHeaderRemessa(TipoArquivo tipoArquivo, int numeroArquivoRemessa, ref int numeroRegistro);
 
         /// <summary>
         /// Gera o Trailer do arquivo de remessa

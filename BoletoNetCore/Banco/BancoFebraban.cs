@@ -22,8 +22,12 @@ namespace BoletoNetCore
         public void ValidaBoleto(Boleto boleto)
         {
         }
+		public virtual void ConfigurarImpressaoBoleto(Boleto boleto)
+		{
+			ImpressaoBoletoFactory<T>.ObterImpressaoBoleto(boleto);
+		}
 
-        public virtual string FormataCodigoBarraCampoLivre(Boleto boleto)
+		public virtual string FormataCodigoBarraCampoLivre(Boleto boleto)
         {
             var carteira = CarteiraFactory<T>.ObterCarteira(boleto.CarteiraComVariacao);
             return carteira.FormataCodigoBarraCampoLivre(boleto);
